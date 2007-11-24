@@ -1,0 +1,269 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; I; SunOS 5.6 sun4u) [Netscape]">
+  <title>2G1915 / Homework 5: Distributed Computing with Message Passing</title></head>
+
+<body style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);" alink="#ff0000" link="#000099" vlink="#3366ff">
+<table nosave="">
+  <tbody>
+    <tr nosave="">
+      <td valign="top"><a href="http://www.kth.se/"><img src="hw5_files/kth_microelektr_inf_.gif" alt="KTH" border="0" height="140" width="150"> </a> </td>
+      <td nosave="" align="center" valign="top">
+      <h2>2G1915 Concurrent Programming <br>
+      <a href="http://www.imit.kth.se/courses/2G1915/index.html">2004/2005</a><br>
+      </h2>
+      <h2>(VT05)</h2>
+      <h2>Homework 5: Distributed Computing with Message Passing</h2>
+      </td>
+      <td valign="top"><a href="http://www.it.kth.se/"><img src="hw5_files/top_logotyp_4.gif" nosave="" alt="IT-Universitetet" border="0" height="51" width="146"> &nbsp;</a></td>
+    </tr>
+  </tbody>
+</table>
+<h4> </h4>
+<h4>Due February 24 (Thursday), by midnight (23:59).</h4>
+Reading and links:
+<ul>
+  <li> Ch 7 and Ch8 in the MPD book</li>
+  <li>Handouts of <a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L12">Lectures 12-16</a>,
+in particular:</li>
+  <ul>
+    <li><a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L14">Lecture 14 "Case study:
+Introduction to MPI"</a></li>
+  </ul>
+  <li>See also tutorials referenced on <a href="http://www.imit.kth.se/courses/2G1915/labs/mpi.html">MPI (Message
+Passing Interface) Links</a></li>
+  <li><i>Optional: </i>if you will, you may solve tasks in Java using
+sockets or/and RMI for communication.</li>
+  <ul>
+    <li><a href="http://www.imit.kth.se/courses/2G1915/labs/java.html">Java SDK. Related Links</a></li>
+    <li>In <a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L13">Lecture 13 " Case study:
+Java socket API"</a></li>
+    <li>In <a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L15">Lecture 15 " Case study:
+Java RMI"</a></li>
+  </ul>
+  <ul>
+  </ul>
+</ul>
+Programming environments:
+<ul>
+  <li> C with MPICH library under Linux, Solaris or Windows.</li>
+  <ul>
+    <li><a href="http://www.imit.kth.se/courses/2G1915/labs/mpi.html">MPI (Message Passing Interface) Links</a></li>
+    <li> <a href="http://www.imit.kth.se/courses/2G1915/labs/mpich/examples/">MPICH examples</a></li>
+    <li> <a href="http://www.imit.kth.se/courses/2G1915/labs/ws.html">Developing a MPI Application on
+Workstations at KTH</a></li>
+  </ul>
+  <li> <i>Optional</i>: Java SDK (the java.net package or/and Java
+RMI)</li>
+  <ul>
+    <li><a href="http://www.imit.kth.se/courses/2G1915/labs/java.html">Java SDK. Related Links</a></li>
+  </ul>
+</ul>
+<h2> Objectives:</h2>
+<ul>
+  <li> You learn how</li>
+  <ul>
+    <li> to program and use message passing in a distributed application</li>
+    <li> to program, build and execute distributed program in C with
+MPI library or/and in Java using Java RMI or sockets.</li>
+  </ul>
+</ul>
+<h2> Task</h2>
+There are 4 problems. Problems 1 and 2 are worth 20 points each.
+Problems 3 and 4 are worth 40 points each. <b><span style="background-color: rgb(255, 255, 0);">You are to solve any
+combination of problems that adds up to (at least) 40 points.</span></b>
+You may discuss the
+meaning of questions with classmates, but the work you turn in must be
+yours alone. Each problem requires developing an outline of a solution
+and its implementation in C using the MPI library. As an option, you
+may implement your solution in in Java using socket
+API or Java RMI for process interactions. You may include the program
+outline and short explanation
+(if necessary) as comments to a source code of your implementation.<br>
+<h1> Problems</h1>
+<h4> 1. <span style="font-style: italic;">The Roller Coaster Problem</span>
+(Based on Exercise 7.12) (20 points)</h4>
+<font size="-1">Suppose there are <tt>n</tt> passenger processes and
+car process. The passengers repeatedly wait to take rides in the car,
+which
+can hold C passengers, C &lt; n. However, the car can go around the
+tracks
+only when it is full.</font>
+<p><font size="-1">(a) Develop code (program outline) for the actions
+of
+the passenger and car processes. Use message passing for communication.</font>
+<br>
+<font size="-1">(b) Implement the program outline in C using the MPI
+library or in Java using the socket API or Java RMI.<br>
+</font> </p>
+<font size="-1"></font>
+<h4>2. Asynchronous message passing (20 points)<br>
+</h4>
+<font size="-1">Consider the following program in which processes
+communicate
+using asynchronous message passing:</font>
+<blockquote style="font-family: monospace;"><font size="-1">chan
+toA(int), toB(int), toC(int);</font>
+  <br>
+  <font size="-1">process A {</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; int v1 = 1, new;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chC(v1); v1 = v1+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chB(v1); v1 = v1+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chA(new); v1 = max(v1,
+new+1); v1 = v1+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chC(v1); v1 = v1+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chA(new); v1 = max(v1,
+new+1); v1 = v1+1;</font>
+  <br>
+  <font size="-1">}</font>
+  <br>
+  <font size="-1">process B {</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; int v2 = 1, new;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chC(v2); v2 = v2+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chB(new); v2 = max(v2,
+new+1); v2 = v2+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chB(new); v2 = max(v2,
+new+1); v2 = v2+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chA(v2); v2 = v2+1;</font>
+  <br>
+  <font size="-1">}</font>
+  <br>
+  <font size="-1">process C {</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; int v3 = 1, new;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chC(new); v3 = max(v3,
+new+1); v3 = v3+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chC(new); v3 = max(v3,
+new+1); v3 = v3+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; send chA(v3); v3 = v3+1; send
+chB(v3); v3 = v3+1;</font>
+  <br>
+  <font size="-1">&nbsp;&nbsp;&nbsp; receive chC(new); v3 = max(v3,
+new+1); v3 = v3+1;</font>
+  <br>
+  <font size="-1">}</font></blockquote>
+<font size="-1">(a) What are the possible final values of <tt>v1</tt>,
+<tt>v2</tt>,
+and
+<tt>v3</tt>? Show your work.</font>
+<br>
+<font size="-1">(b) To check your answer, implement and test the
+distributed program
+in C using the MPI library (or in Java using sockets or Java RMI).</font>
+<h4>3. <span style="font-style: italic;">The Stable Marriage Problem</span>
+(Based on Exercise 7.15) (40 points)</h4>
+<font size="-1"><i>The stable marriage problem. </i>Let </font><font size="-1"><tt>Man[1:n]</tt> and </font><font size="-1"><tt>Woman[1:n]</tt></font><font size="-1"> </font><font size="-1">arrays of </font><font size="-1">processes.
+Each man ranks the women from 1 to </font><font size="-1"><tt>n</tt>,
+and each woman ranks the men from 1 to </font><font size="-1"><tt>n</tt>.
+(A ranking is a permutation of integers from 1 to </font><font size="-1"><tt>n</tt>). A pairing is a one-to-one correspondence of men
+and women. A pairing is stable if, for two men </font><font size="-1"><tt>Man[i]</tt>
+and &nbsp; </font><font size="-1"><tt>Man[j]</tt> and their paired
+women
+</font><font size="-1"><tt>Woman[p]</tt></font><font size="-1"> and
+&nbsp;</font><font size="-1"><tt>Woman[q]</tt>, both of the following
+conditions are satisfied:</font><font size="-1"><br>
+</font>
+<ol>
+  <li><font size="-1"><tt>Man[i]</tt></font><font size="-1"> ranks </font><font size="-1"><tt>Woman[p]</tt> higher than </font><font size="-1"><tt>Woman[q]</tt></font><font size="-1">, or </font><font size="-1"><tt>Woman[q]</tt> ranks </font><font size="-1"><tt>Man[j]</tt> higher than </font><font size="-1"><tt>Man[i]</tt>;
+and</font><font size="-1"><br>
+    </font> </li>
+  <li><font size="-1"><tt>Man[j]</tt></font><font size="-1"> ranks </font><font size="-1"><tt>Woman[q]</tt> higher than </font><font size="-1"><tt>Woman[p]</tt>,
+or </font><font size="-1"><tt>Woman[p]</tt> ranks </font><font size="-1"><tt>Man[i]</tt> higher than </font><font size="-1"><tt>Man[j]</tt>.</font><font size="-1"><br>
+    </font></li>
+</ol>
+<p><font size="-1">A solution to the stable marriage problem is a set
+of n pairings, all of which are stable. <br>
+Assume that the processes can interact by asynchronous message passing.<br>
+</font><font size="-1">(a) Develop an outline of a distributed program
+to solve the stable marriage problem.</font><font size="-1"><br>
+(b) Develop a distributed program that simulate of your answer to (a)
+in C using the MPI library or in Java using the socket API (or Java
+RMI). Your program should print a trace of the interesting events as
+they happen.<br>
+The men should propose and the women should listen. A woman has to
+accept the first proposal she gets, because a better one might not come
+along; however she can dump (leave) the first man if she later gets a
+better proposal. [Hint: In order to terminate, the program needs to
+count the number of women that have ever accepted a proposal. This
+could be achieved with an extra counter process or a global variable.]</font>
+</p>
+<h4> 4. <i>Exchanging Values</i> (Based on Exercise 7.20) (40 points)</h4>
+<font size="-1">Consider the three programs in Section 7.4 for
+exchanging values by interactive peers (See also <a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L12">Lecture 12</a>, slides 30-36)<br>
+(a) Implement each algorithm using </font><font size="-1">either C and
+the MPI library or Java and
+the
+sockets package (or Java RMI)</font><font size="-1">. You may use
+collective communication (or multicast in Java) where appropriate. Each
+program should execute a sequence of </font><font size="-1"><span style="font-family: monospace;">R</span></font><font size="-1"> rounds
+of exchanges.</font><font size="-1"> Your program should print a trace
+of the interesting events as they happen.</font><br>
+<font size="-1">(b) Compare the performance of your programs. Build a
+plot that shows the total execution time of each program as a function
+of the number of processes (2, 4, 6, 8) and number of round (1,2, 3).
+When performing evaluation experiments, do not&nbsp; print a trace of
+events. <br>
+</font>
+<h4><!--
+4. Message passing on top of shared memory.</h4>
+<font size=-1>A high-authorized person in the U.S.A. (let's call him Al)
+wakes up one morning and decides to use his influence to force the Department
+of Defense to purchase a new parallel machine in the interests of national
+security. Not being a very technical sort, Al demands that they buy a shared
+memory system without realizing that all the software running in the DoD
+is written in the message&shy;passing model. Unable to return the machine
+(Al lost the receipt when it mysteriously disappeared from his office with
+some other legal papers), Al asks you to write some code to emulate the
+message&shy;passing model on top of shared memory.</font>
+<br><font size=-1>The message&shy;passing model looks like standard C with
+the exception of two function calls, <tt>Send</tt>&nbsp; and <tt>Receive</tt>:</font>
+<ul>
+<li>
+<font size=-1><tt>Send(int pnumber, char *msg) </tt>sends data pointed
+to by <tt>msg</tt> to the process identified by <tt>pnumber</tt></font></li>
+
+<li>
+<font size=-1><tt>int Receive(int pnumber, char *msg)</tt> returns 1 if
+there are any messages waiting for process <tt>pnumber</tt> and 0 otherwise.
+The message is returned in <tt>msg</tt>.</font></li>
+</ul>
+<font size=-1>Al's shared memory system looks like standard C with the
+exception of two functions
+<tt>LOCK(lock_t* lock)</tt> and
+<tt>UNLOCK(lock_t*
+lock)</tt> that are synchronization primitives. The first blocks a process
+until it can get exclusive access to global variables protected with the
+<tt>lock</tt>, i.e. until the <tt>lock</tt> is locked. The second, <tt>UNLOCK(globalVar)</tt>,
+releases the lock.</font><font size=-1></font>
+<p><font size=-1>(a) Help Al out by writing
+<tt>Send</tt> and <tt>Receive</tt>
+using the shared&shy;memory primitives. You may also need to write a routine
+<tt>Init</tt>
+to set up locks. Use C&shy;like pseudo&shy;code. These procedures should
+not be long! [Warning: explain your approach before writing code so partial
+credit can be given].</font>
+<br><font size=-1>(b) Implement send and receive primitives in C with pthreads,
+mutex and (if necessary) condition variables or/and semaphores.</font>
+-->
+</h4>
+<p> </p>
+<p> </p>
+<hr width="100%">
+<address> Last modified: February 16, 2005</address>
+<address> 2g1915(a)imit.kth.se</address>
+</body></html>

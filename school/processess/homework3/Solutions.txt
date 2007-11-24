@@ -1,0 +1,146 @@
+1)
+a)
+The number of possible outputs can be calculated using the formula for calculating number of histories for a multithreaded program. The formula is:
+H = (nm)!/(m!^n)
+where:
+n = number of processes
+m = number of atomic actions per process.
+In this case we don't know how many atomic actions a call to write() contain, but we're only interested in the number of different outputs the program can produce. Therefore we treat a call to write(string) as strlen(string) atomic actions. This makes:
+n = 3
+m = 12
+H = 3.38e15
+Not all of thease outputs will be unique since all the processes writes the same string irrespective of the number they write.
+On the other hand most shells will not interrupt in the middle of a write() call. If we instead treat write(string) as an atomic action the number of histories will be:
+n = 3
+m = 2
+H = 90
+
+b)
+Semaphore s1 = 0, s2 = 0;
+module main()
+  Semaphore s2, s3;
+
+  process P1 {
+    write("line 1"); write("line 2");
+    V(s2);
+  }
+  process P2 {
+    P(s2);
+    write("line 3"); write("line 4");
+    V(s3);
+  }
+  process P3 {
+    P(s3);
+    write("line 5"); write("line 6");
+  }
+end main
+
+c)
+See 1.c
+
+2)
+a)
+int count = 0;          #counter
+sem arrive = 1, go = 0; #semaphores
+
+void reset_barrier() {
+  count = 0;
+  arrive = 1;
+  go = 0;
+}
+void barrier(int h) {
+  P(arrive);
+  ++count;
+  if (count == h) {
+    for (int i = 0; i < h-1; ++i)
+      V(go);
+    V(arrive);
+    return;
+  }
+  V(arrive);
+  P(go);
+}  
+
+For implementation see:
+see BarrierTest.c
+
+3)
+a)
+sex = NOR;
+int nin = 0; # number of persons in the bathroom
+int nwait; # number of persons waiting to get in because of wrong sex. 
+Semaphore mutex = 1;
+Semaphore wait = 0; # Semaphore for the waiting people.
+
+Outline for the program:
+void visit(Person p) {
+  mutex.wait();
+  if (sex == NOR) {
+    sex = p.get_sex();
+  }
+  if (sex == p.get_sex()) {
+    ++nin;
+    mutex.post();
+  }
+  else {
+    ++nwait;
+    mutex.post();
+    wait.wait();
+
+    mutex.wait();
+    ++nin;
+    sex = p.get_sex();
+    mutex.post();
+  }
+  do_things(p);
+
+  mutex.wait();
+  --nin;
+  if (nin == 0) {
+    if (!nwait)
+      sex = cPerson::NOR;
+    else
+      for (;nwait; nwait--)
+	wait.post();
+  }
+  mutex.post();
+}
+
+The solution is not fair but it guarantees that there will be only males or females in the bathroom and in b it guarantees there will be maximum four persons in the bathroom at a time.
+For code see unisex directory.
+Compile with:
+g++ -Wall -o test classes.cpp main.cpp -lpthread -lposix4 -DA
+
+b)
+For code see unisex directory.
+Compile with:
+g++ -Wall -o test classes.cpp main.cpp -lpthread -lposix4 -DB
+
+
+5)
+a)
+A code outline:
+fullSem = 0, emptySem = 0, worm = 0, dishSem = 1;
+mother() {
+  emptySem.wait();
+  gather_worms();
+  fullSem.post();
+}
+tell_empty() {
+  emptySem.post();
+  fullSem.wait();
+}
+child[1..n] {
+  dishSem.wait();
+  nworms = worm.get_value();
+  if (nworms == 0) {
+    tell_empty();
+  }
+  worm.wait();
+  dishSem.post();
+}
+
+The solution is fair as fair as the implementation of the semaphore. The bird that first found the dish empty will be the first to recieve a worm. The bird that first started to wait for the dish to be free will also be the first to get a worm.
+
+b)
+See birds.cpp

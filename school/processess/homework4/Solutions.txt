@@ -1,0 +1,149 @@
+2G1915 Concurrent Programming
+Homework 3
+Tomas Mannerstedt
+791021-0058
+###############################################################################
+1)
+a)
+int nO = number of O atoms.
+int n = 2*nO;
+int hdone = 0; // number of H atoms "booked" by O atoms
+int hcnt = 0; // numer of H atoms woth status READY or CONSUMED
+int hready[n]; // Status for h atoms. The first to arrive on index 0
+int ncreated = 0; // number of created water molecules.
+Mutex mutex;
+
+void oReady() {
+    lock(mutex);
+    int hindex = hdone; // Pick two H-atoms to wait for.
+    m_hdone += 2;
+    notifyAll();
+		
+    while (m_hready[hindex] == FREE) {
+        unlock(mutex);
+	wait();
+	lock(mutex);
+    }
+    while (m_hready[hindex+1] == FREE) {
+        unlock(mutex);
+	wait();
+	lock(mutex);
+    }
+    makeWater(hindex);
+    unlock(mutex);
+}
+
+void hReady() {
+    lock(mutex);
+    int hindex = hcnt; // Get who I am.
+    hcnt++;
+    hready[hindex] = READY;
+    notifyAll();
+		
+    while (hready[hindex] == READY) {
+        unlock(mutex);
+	wait();
+	lock(mutex);
+    }
+    unlock(mutex);
+}
+
+void makeWater(int hindex) {
+    lock(mutex);
+    hready[hindex] = CONSUMED;
+    hready[hindex+1] = CONSUMED;
+    notifyAll();
+    ++ncreated;
+    unlock(mutex);
+}
+
+b)
+See Water/Water.java for implementation.
+
+c)
+See water.cpp
+Note that this file may not compile with versions of gcc earlier than 3.X.
+Old gcc compilers do not support some of the (standard) C++ features I use.
+
+###############################################################################
+2)
+
+###############################################################################
+3)
+
+print(Printer p, Job j) {
+  print job j at printer p
+}
+
+requestPrint(Printer p, Job j) {
+  if (p == A) {
+    <++npendA>
+    <await (free(A)); print(A, j);>
+    <--npendA>
+  }
+  else if (p == B) {
+    <++npendB>
+    <await (free(B)); print(B, j);>
+    <--npendB>
+  }
+  else {
+    <
+    await (free(A) || free(B));
+    if (npendA < npendB)
+      print(A, j);
+    else
+      print(B, j);
+    >
+  }
+}
+
+See Printer/Printer.java for implementation.
+
+###############################################################################
+4)
+a)
+int capacity = H;
+int honey = 0; // the amount of honey
+boolean full;
+void putHoney() {
+    if (!full) {
+	++honey;
+	if (honey == capacity) {
+	   notify();
+	}
+    }
+    while (full) {
+	wait();
+    }
+}
+	
+void eat() {
+    honey = 0;
+    full = false;
+    notifyAll();
+}
+
+void waitForHoney() {
+    while (!full) {
+	wait();
+    }
+}
+
+process Bear {
+    process Bee [1..n] {
+        while (true) {
+	    sleep for a while
+	    putHoney();
+	}
+    }
+    
+    while (1) {
+        waitForHoney(); // aka sleep
+	eat();
+    }
+}
+
+b)
+See Honeybee/Honeybees.java for implementation.
+
+###############################################################################

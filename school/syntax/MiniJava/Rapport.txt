@@ -1,0 +1,29 @@
+Minijava - Projekt
+
+Typkontroll
+
+Typkontrollen sker efter det att syntaxkontrollen skett. Man producerar i syntaxkollen ett syntaxträd över det aktuella programmet. För att bygga upp syntaxträdet används de klasser som är definierade i types.hpp.
+När syntaxträdet är byggt produceras utifrån detta en symboltabell. Denna är implementerad som en hierarkisk struktur enligt följande schema:
+
+Klass	=> { Klassnamn
+	     Medlemsvariabler => { Namn, Typ }
+	     Metoder => { Metodnamn
+			  Argumentlista
+			  Lokala variabler => { Namn, Typ }
+			  Returtyp
+			}
+	   }
+
+Denna struktur byggs upp av visitorklassen cBtvt genom att denna traverserar syntaxträdet. När detta görs kontrolleras även att:
+
+      * Metoder inte överlagras.
+      * Alla klasser har unika namn.
+      * Två variabler med samma namn inte definieras i samma scope.
+      * Kontroller att alla argument till alla metoder har unika namn.
+
+När en symboltabell producerats kan en typkontroll göras. Detta görs med visitorklassen cTcv (Type Checking Visitor). Denna traverserar syntaxträdet och kontrollerar i varje nod där det är aktuellt att typerna är korrekta. Till exempel kontrolleras i noden som representerar en tilldelning (Assignment) att variabeln man tilldelar till har samma typ som det värde man vill tilldela variabeln. Om fel uppstår hanteras dessa genom att undantag kastas och ett felmeddelande skrivs ut.
+
+Att bygga projektet
+* Kompilera projektet med make.
+* Skapa dokumentationen med make doc.
+Projektet är testat med GNU make 3.80 och gcc 3.3.5.

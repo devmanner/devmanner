@@ -1,0 +1,207 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="GENERATOR" content="Mozilla/4.7 [en] (X11; I; SunOS 5.6 sun4u) [Netscape]">
+  <title>2G1915 / Homework 3: Semaphores</title></head>
+
+<body alink="#ff0000" bgcolor="#ffffff" link="#000099" text="#000000" vlink="#3366ff">
+<table nosave="">
+  <tbody>
+    <tr nosave="">
+      <td valign="top"><a href="http://www.kth.se/"><img src="desc_files/kth_microelektr_inf_.gif" alt="KTH" border="0" height="140" width="150"> </a> </td>
+      <td nosave="" align="center" valign="top">
+      <h2>2G1915 Concurrent Programming <br>
+      <a href="http://www.imit.kth.se/courses/2G1915/index.html">2004/2005</a><br>
+      </h2>
+      <h2>(VT05)</h2>
+      <h2>Homework 3: Semaphores</h2>
+      </td>
+      <td valign="top"><a href="http://www.it.kth.se/"><img src="desc_files/top_logotyp_4.gif" nosave="" alt="IT-Universitetet" border="0" height="51" width="146"> &nbsp;</a></td>
+    </tr>
+  </tbody>
+</table>
+<h4>Due February 10 (Thursday), 2005, by midnight</h4>
+Reading:
+<ul>
+  <li> Ch 4 in the MPD book</li>
+  <li> <a href="http://www.imit.kth.se/courses/2G1915/lectures.html#L6">Lecture 6: Introduction
+to Pthreads</a>.</li>
+</ul>
+Programming environments:
+<ul>
+  <li> C with Pthread library under Linux, Solaris or Windows.</li>
+  <ul>
+    <li>To use semaphores, include <tt>semaphore.h</tt> in the
+source file and link with <tt>-lposix4</tt>.</li>
+  </ul>
+  <ul>
+    <li> See example: <a href="http://www.imit.kth.se/courses/2G1915/labs/pc.sems.c">Producer/consumer</a>
+program using semaphores and threads (Figure 4.15 in the MPD book). The
+given code is lightly different from that one in the text. Note: Under
+Windows and Linux, you might need to define SHARED as 0 to be used in
+the
+sem_init function.</li>
+  </ul>
+  <li><i>Optional: </i>You may implement the problems in Java using
+Java threads and monitors.<br>
+  </li>
+  <li>See "<a href="http://www.imit.kth.se/courses/2G1915/related.html">Programming Environments.
+Platforms. Related Links</a>"<br>
+  </li>
+</ul>
+<h2> Objectives:</h2>
+<ul>
+  <li> You learn how</li>
+  <ul>
+    <li> to use semaphores to synchronize threads in a concurrent
+program with shared variables</li>
+    <li> to use semaphores to control access to shared resources</li>
+  </ul>
+</ul>
+<h2> Tasks</h2>
+There are 5 problems which are worth as follows:<br>
+<br>
+<table bgcolor="#c0c0c0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th bgcolor="#c0c0c0" valign="top">Problems<br>
+      </th>
+      <th bgcolor="#c0c0c0" valign="top">Points<br>
+      </th>
+    </tr>
+    <tr>
+      <td valign="top">1, 2<br>
+      </td>
+      <td valign="top">10 each<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">3, 4, 5<br>
+      </td>
+      <td valign="top">30 each<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<b><span style="background-color: rgb(255, 255, 0);">You are to solve
+any combination of problems that adds up to at least
+40 points.</span></b> You may discuss the meaning of questions with
+classmates, but
+the work you turn in must be yours alone. <br>
+<ol>
+  <ul>
+  </ul>
+</ol>
+<h2> Problems</h2>
+<h4> 1. Synchronization using semaphores. (10 points)</h4>
+<font size="-1">The purpose of this exercise is to introduce
+you to semaphores in the Pthreads library or/and the Semaphore class
+of&nbsp; the java.util</font><font size="-1">.concurrent package.<br>
+</font><font size="-1">Consider the following program that spawns three
+processes:</font> <br>
+<tt><font size="-1">module main()</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; process P1 {</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+write("line 1"); write("line 2");</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; }</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; process P2 {</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+write("line 3"); write("line 4");</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; }</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; process P3 {</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+write("line 5"); write("line 6");</font></tt> <br>
+<tt><font size="-1">&nbsp;&nbsp;&nbsp; }</font></tt> <br>
+<tt><font size="-1">end main</font></tt>
+<p> </p>
+<p><font size="-1">(a) How many different outputs could this program
+produce? <i>Shortly</i> explain your reasoning.</font> <br>
+<font size="-1">(b) Add semaphores to the program so that the six lines
+of output are printed in the order 1, 2, 3, 4, 5, 6. Declare and
+initialize any semaphores you need and add <tt>P</tt> and <tt>V</tt>
+operations to the above processes.</font> <br>
+<font size="-1">(c) Implement the solution in C using pthreads and
+semaphores (Optional: in Java using Java threads and the
+java.util.concurrent.Semaphore class).</font> </p>
+<h4> 2. Reusable counter barrier (based on Exercise 4.11) (10 points) <br>
+</h4>
+<font size="-1">Develop an implementation (a program outline) of a <i>reusable</i>
+counter barrier for n processes using semaphores. In particular, use
+only the following shared variables:</font>
+<blockquote><tt><font size="-1">int count =
+0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #counter</font></tt>
+  <br>
+  <tt><font size="-1">sem arrive = 1, go = 0; #semaphores</font></tt></blockquote>
+<font size="-1">Implement the solution in C with pthreads.</font> <br>
+<font size="-1">Test the solution with the program that performs matrix
+summation using pthreads: <a href="http://www.imit.kth.se/courses/2G1915/labs/matrixSum.c">matrixSum.c</a></font><font size="-1"></font>
+<h4> </h4>
+<h4> </h4>
+<h4>3. <i>The Unisex Bathroom</i> (based on Exercise 4.30) (30 points)</h4>
+<p><font size="-1">Suppose there is only one bathroom in your
+department. It can be used by any number of men or any number of women,
+but not at the same time.<br>
+(a) Develop a solution to this problem (i.e. code outline) using
+semaphores for synchronization. Implement the outline in C with
+pthreads and semaphores (optional in Java using Java threads and the
+java.util.concurrent.Semaphore class). Represent men and women as
+threads that repeatedly sleep and "use the bathroom". Your program
+should allow any number of men or women to be in the bathroom at the
+same time. Your solution should ensure the required exclusion and avoid
+deadlock, but it need not to be fair.<br>
+(b) Modify your answer to (a) so hat at most four people are in the
+bathroom at same time.<br>
+(c) <i>Optional (for extra 1% bonus)</i> Modify your answer to (a) to
+ensure fairness. You might want to solve the problem differently.
+(Hint: Use the the technique of passing the baton).</font><br>
+</p>
+<font size="-1"></font>
+<h4>4.&nbsp; <i>Atomic Broadcast</i> (based on Exercise 4.16) (30
+points)</h4>
+<font size="-1">Assume one producer process and </font><font size="-1"><tt>n</tt></font><font size="-1"> consumer processes shared a buffer. The producer deposits
+messages in the buffer, consumers fetch them. Every message deposited
+by the producer has to be fetched by <i>all</i> </font><font size="-1"><tt>n</tt></font><font size="-1"> consumers before the producer can deposit another message
+into the buffer.<br>
+(a) Develop a solution to this problem (i.e. code outline) using
+semaphores for synchronization. Implement the outline in C with
+pthreads and semaphores (or in Java using Java threads and the
+java.util.concurrent.Semaphore class). Represent the producer and
+consumers as threads that repeatedly sleep and access the buffer.<br>
+(b) Now assume that the buffer has b slots. The producer can deposit
+messages only into empty slots and every message has to be received by <i>all</i>
+</font><font size="-1"><tt>n</tt></font><font size="-1"> consumers
+before the slot can be reused. Furthermore, each consumer is to receive
+the messages in the order they were deposited. However, different
+consumers can receive messages at different times. For example, one
+consumer could receive up to b more messages than another if the second
+consumer is slow. Extend your solution to (a) to solve this more
+general problem. Implement your solution in C with pthreads and
+semaphores (or in Java with Java threads and&nbsp; </font><font size="-1">the java.util.concurrent.Semaphore class).</font>
+<h4>5. <i>The Hungry Birds Problem</i>&nbsp; (based on Exercise
+4.35) (30 points)</h4>
+<font size="-1">Given are <tt>n</tt> baby birds and one parent bird.
+The baby birds eat out of a common dish that initially contains <tt>W</tt>
+worms. Each baby bird repeatedly takes a worm, eats it, sleeps for a
+while, takes another worm, and so on. If the dish is empty, the baby
+bird who discovers the empty dish chirps real loud to awaken the parent
+bird. The parent bird flies off and gathers <tt>W</tt> more worms,
+puts them in the dish, and then waits for the dish to be empty again.
+This pattern repeats forever.</font>
+<p><font size="-1">Represent the birds as concurrent processes (i.e.
+array of "babyBird" processes and a "parentBird" process), and the dish
+as a critical shared resource that can be accessed by at most one bird
+at a time. Be sure to declare and initialize shared variables that you
+use for process interaction and synchronization.</font> </p>
+<p><font size="-1">(a) Develop code (program outline) to simulate the
+actions of the birds using semaphores for synchronization. Is your
+solution fair? Explain.</font> <br>
+<font size="-1">(b) Implement the solution in C with pthreads and
+semaphores (or in Java with Java threads and the
+java.util.concurrent.Semaphore class).<br>
+</font></p>
+<hr width="100%">
+<address> Last modified: February 2, 2005</address>
+<address> 2g1915-teachers(a)imit.kth.se<br>
+</address>
+</body></html>

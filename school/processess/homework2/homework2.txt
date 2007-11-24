@@ -1,0 +1,29 @@
+1)
+
+void Swap(int* a, int* b) {
+  < int temp = *a; *a = *b; *b = temp; >
+}
+
+int mutex = 0; // Unlocked that is.
+bool trylock() {
+  int locked = 1; // locked.
+  swap(&mutex, &locked);
+  if (locked == 1)
+     return false;
+  return true;
+}
+void unlock() {
+  int unlocked = 0;
+  swap(&mutex, &unlocked);
+}
+
+process CS[i = 1 to n] {
+  while (true) {
+    while (!trylock())
+      // maybe wait for a while.
+    critical section;
+    unlock();
+    noncritical section;
+  }
+}
+

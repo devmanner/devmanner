@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head><!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+
+<title>Tempus et mobilius. Time and motion</title><meta name="description" content="Tempus et mobilius. Time and motion">
+<meta name="keywords" content="htmlatex">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<link rel="STYLESHEET" href="239_files/htmlatex.css"></head>
+
+
+<body lang="EN" bgcolor="#ffffff">
+ <h1><br clear="all"><center><table bgcolor="#0060f0"><tbody><tr><td><b><font size="5" color="#c0ffff"> <a name="SECTION0001000000000000000000"><i>Tempus et mobilius.</i> Time and motion</a></font> </b></td></tr></tbody></table></center></h1>
+<p>
+<table><tbody><tr>
+ <td><img width="469" height="309" align="bottom" alt="tex2html_wrap42" src="239_files/239img1.gif"> 
+ </td><td><img width="285" height="231" align="bottom" alt="tex2html_wrap44" src="239_files/239img2.gif"> 
+</td></tr></tbody></table>
+</p><p>
+Unfortunately, most commercially available ball clocks do not incorporate a 
+date indication, although this would be simple to do with the addition of 
+further carry and indicator tracks. However, all is not lost! As the balls 
+migrate through the mechanism of the clock, they change their relative 
+ordering in a predictable way. Careful study of these orderings will therefore 
+yield the time elapsed since the clock had some specific ordering. The length 
+of time which can be measured is limited because the orderings of the balls 
+eventually begin to repeat. Your program must compute the time before 
+repetition, which varies according to the total number of balls present.
+</p><p>
+</p><h2><font color="#0070e8"><a name="SECTION0001001000000000000000">Operation of the Ball Clock</a></font></h2>
+<p>
+Every minute, the least recently used ball is removed from the queue of balls 
+at the bottom of the clock, elevated, then deposited on the minute indicator 
+track, which is able to hold four balls. When a fifth ball rolls on to the 
+minute indicator track, its weight causes the track to tilt. The four balls 
+already on the track run back down to join the queue of balls waiting at the 
+bottom in reverse order of their original addition to the minutes track. The 
+fifth ball, which caused the tilt, rolls on down to the five-minute indicator 
+track. This track holds eleven balls. The twelfth ball carried over from the 
+minutes causes the five-minute track to tilt, returning the eleven balls to 
+the queue, again in reverse order of their addition. The twelfth ball rolls 
+down to the hour indicator. The hour indicator also holds eleven balls, but 
+has one extra fixed ball which is always present so that counting the balls in 
+the hour indicator will yield an hour in the range one to twelve. The twelfth 
+ball carried over from the five-minute indicator causes the hour indicator to 
+tilt, returning the eleven free balls to the queue, in reverse order, before 
+the twelfth ball itself also returns to the queue.
+</p><p>
+</p><h2><font color="#0070e8"><a name="SECTION0001002000000000000000">Input</a></font></h2>
+<p>
+The input defines a succession of ball clocks. Each clock operates as 
+described above. The clocks differ only in the number of balls present in the 
+queue at one o'clock when all the clocks start. This number is given for each 
+clock, one per line and does not include the fixed ball on the hours 
+indicator. Valid numbers are in the range 27 to 7000. A zero signifies the end 
+of input.
+</p><p>
+</p><h2><font color="#0070e8"><a name="SECTION0001003000000000000000">Output</a></font></h2>
+<p>
+For each clock described in the input, your program should report the number 
+of balls given in the input and the number of days (24-hour periods) which 
+elapse before the clock returns to its initial ordering. Output will always
+fit in a 64-bit integer.
+</p><p>
+</p><h2><font color="#0070e8"><a name="SECTION0001004000000000000000">Sample Input</a></font></h2>
+<p>
+</p><pre>30
+45
+0</pre>
+<p>
+</p><h2><font color="#0070e8"><a name="SECTION0001005000000000000000">Sample Output</a></font></h2>
+<p>
+</p><pre>30 balls cycle after 15 days.
+45 balls cycle after 378 days.</pre>
+<p>
+</p></body></html>

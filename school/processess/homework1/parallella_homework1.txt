@@ -1,0 +1,184 @@
+1)
+    int x = 0, y = 0;
+    co x = x + 1;  x = x + 2;
+    || x = x + 2;  y = y - x;
+    oc
+
+a) Number of possible histories can be calculated using the formula:
+H = (nm)!/(m!^n)
+Where:
+n = number of processes
+m = number of atomic actions in each process
+In this case x = x + 1 is regarded as an atomic option and therefore the number of possible histories are:
+n = 2
+m = 2
+H = (2*2)!/(2!^2) = 6
+If the atomic actions in process a is named a1 and a2 and the atomic actions in process b is names b1 and b2 the possible histories and final values of x and y are:
+a1 a2 b1 b2 => x = 5, y = -5    
+a1 b1 b2 a2 => x = 5, y = -3    
+b1 b2 a1 a2 => x = 5, y = -2    
+b1 a1 b2 a2 => x = 5, y = -3    
+b1 a1 a2 b2 => x = 5, y = -5    
+a1 b1 a2 b2 => x = 5, y = -5
+
+The values are calculated using this program:
+!!!!!!! INSERT C-SOURCE HERE !!!!!!!!!
+
+b)
+If x = x + 1 is implemented using three atomic actions the number of histories are:
+n = 2
+m = 6
+H = (2*6)!/(6!^2) = 924
+Some of the possible final values of x and y are:
+x = 1, y = -1
+x = 1, y = 0
+x = 2, y = -2
+
+2)
+x = 2, y = 5
+S1: x = x + y;
+S2: y = x - y;
+S3: x = x - y;
+
+a) S1; S2; S3
+All the actions are always performed in the way they are written in this example. Possible final values:
+x = 5
+y = 2
+
+b) co <S1;> || <S2;> || <S3;> oc
+S1 S2 and S3 are compuded mutually exclusive so they will not be interrupted in the middle of the calculation. Therefore S1 S2 and S3 can be considered atomic actions in this exercise. The possible histories and their results are:
+S1 S2 S3 => x = 5, y = 2
+S1 S3 S2 => x = 2, y = -3
+S2 S1 S3 => x = 2, y = -3
+S2 S3 S1 => x = 2, y = -3
+S3 S1 S2 => x = 2, y = -3
+S3 S2 S1 => x = -11, y = -8
+
+c) co <await (x > y) S1; S2;> || <S3;> oc
+In this example the first process waits until x > y which in this example cannot be fulfilled by the other process executing S3. Therefore a deadlock situation occures when process 1 waits for a value to be true which cannot be true. The program will never terminate.
+
+3)
+int x = 0, y = 10;
+co while (x != y) x = x + 1;
+|| while (x != y) y = y - 1;
+oc
+
+a) First we need to define what a critical reference is. A critical reference is a reference to a that is changed by another process.
+An expression meet the requirements of the At-Most-Once Property if any of the following is fulfilled:
+1) It reads at most one critical reference and does not write any critical references,
+2) It writes at most one critical reference and does not read any critical references.
+All the statements in the program fulfill the At-Most-Once Property so the program can also be said to fulfill the At-Most-Once Property.
+
+b) The program will sometimes terminate. I will explain two scenarios, one where it terminates and one where it doesn't.
+1)
+Assume process 1 is executed until x is 5. After that a context switch is made to process 2 and that one is executed until y = 5. Whe while-loop in process 2 is then interrupted because x = y and process2 terminates. Then process 1 is switched back again and executed. If the process was interrupted just after x = x + 1 the while loop will not be entered because x = y. Process 1 also terminates and therefore the whole program terminates.
+2)
+Assume process 1 is executed until x is 5. After that a context switch is made to process 2 and that one is executed until y = 5. Whe while-loop in process 2 is then interrupted because x = y and process2 terminates. Then process 1 is switched back again and executed. If the process was interrupted just before x = x + 1 then x will be incremented to 6. Since y is stuck on 5 and x will only increase process 1 will continue to infinity.
+
+Actually case 2 is not true because eventually x will be overflowed and start over at some minimum value and finally reach the value 5. Then the process will terminate and thereby the program. However, I don't know if the overflow case is a part of the question but if it is then the program will eventuarly terminate in both cases.
+
+4)
+co < await (x > 0) x = x - 1; >
+|| < await (x < 0) x = x + 2; >
+|| < await (x == 0) x = x - 1; >
+oc
+We name the processes 1, 2 and 3 respectivly.
+The program will terminate on the following initial values on x:
+1) x = 1. History: 1, 3, 2. Final value: x = 1
+2) x = 0. History: 3, 2, 1. Final value: x = 0
+3) x = -1. History: 2, 1, 3. Final value: x = -1
+If x > 1 or x < -1 the program will never terminate. If x > 1 then process 1 will be executed but the other processes will wait for x to reach a value it cant reach. On the other hand if x < -2 process 2 will be executed and the other processes will wait for x to reach a value it cannot reach.If x == -2 process 2 will execute and set x to 0. After that process 3 will execute setting x to -1 leaving process 1 to wait for x to reach a value > 0 which will never happen.
+
+5)
+int x = 0;
+co <x = x + 2;>
+|| <x = x + 3;>
+|| <x = x + 4;>
+oc
+
+Proove: {x == 0} S {x == 9} where S is the co statement above.
+
+int x = 0;
+co {x == 0 OR x == 3 OR x == 4 OR x == 7} <x = x + 2> {x == 2 OR x == 5 OR x == 6 OR x == 9}
+|| {x == 0 OR x == 2 OR x == 4 OR x == 6} <x = x + 3> {x == 3 OR x == 5 OR x == 7 OR x == 9}
+|| {x == 0 OR x == 2 OR x == 3 OR x == 5} <x = x + 4> {x == 4 OR x == 6 OR x == 7 OR x == 9}
+oc
+The pre condition of the program is the conjunction of the pre conditions of all the processes:
+{x == 0 OR x == 3 OR x == 4 OR x == 7} AND {x == 0 OR x == 2 OR x == 4 OR x == 6} AND {x == 0 OR x == 2 OR x == 3 OR x == 5} = {x == 0}
+
+The post condition of the program is the conjunction of the post conditions of all the processes:
+{x == 2 OR x == 5 OR x == 6 OR x == 9} AND {x == 3 OR x == 5 OR x == 7 OR x == 9} AND {x == 4 OR x == 6 OR x == 7 OR x == 9} = {x == 9}
+
+6)
+The routines for the linked list are:
+search(): Search for first occurance of a value.
+insert(): Insert a value at the end of the list.
+delete(): Delete an element from the front of the list.
+
+a)
+first is the pointer to the first element of the list and last is the pointer to the last element of the list.
+search() has read set: {first, last, last.next}
+search() has write set: {}
+insert() has read set: {first, last, last.next}
+insert() has write set: {last, last.next}
+delete() has read set: {first, last, last->next}
+delete() has write set: {first, first.next}
+
+Two processes does not interfear if:
+ws1 snitt (rs2 union ws2) = {} AND ws2 snitt (rs1 union ws1) = {}
+In this case this is true for the following function combinations and therefore thease functions can be executed in parallel:
+* search() and search()
+All other combinations of functions must be executed one at a time.
+
+b)
+
+
+7)
+a)
+
+void diff() {
+  line1 = read(file1);
+  line2 = read(file2);
+  if (!line1 && !line2)
+    return;
+  else if (!line1)
+    print(line2);
+  else if (!line2)
+    print(line1);
+  else if (line1 != line2)
+    print(differance(line1, line2));
+}
+
+b)
+
+process read1() {
+  < await(!c1); curr1 = read(file1); c1 = 1; >
+}
+process read1() {
+  < await(!c2); curr2 = read(file2); c2 = 1; >
+}
+
+process diff() {
+  < await(c1); swap(curr1, buff1); c1 = 0; >
+  < await(c2); swap(curr2, buff2); c2 = 0; >
+  print(diff(buff1, buff2));
+}
+
+8)
+
+bool check(board b, int row, int col) {
+  Return true is a queen can be placed on (row, col) without interfering with another queen already on the board.
+}
+
+process add_queen(board b, int row) {
+  if (row == 9) {
+    solutions.add(board);
+    return;
+  }
+  for (int i = 1; i != 9; ++i) {
+    if (check(b, row, col)) {
+      b.add(row, col);
+      add_queen(b, row+1);
+    }
+  }
+}
