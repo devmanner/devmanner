@@ -21,9 +21,9 @@ class cBoard {
 private:
   board_t m_board;
 public:
-  cBoard() : m_board(0) { assert(sizeof(board_t) == 8); }
+  cBoard() : m_board(0) { }
   cBoard(const cBoard &b) : m_board(b.m_board) { }
-
+  
   /* row && col are zero-counted. */
   void set(int row, int col) {
     m_board |= (ONE << (row*8 + col));
@@ -43,7 +43,7 @@ public:
    * It checks if a queen can be placed on (row, col) without interfering with queens already
    * on the board.
    */
-     
+  
   bool ok_add(int row, int col) {
     /* Is there anyone on the same row or column. */
     for (int x = 0; x < 8; ++x)
@@ -81,6 +81,7 @@ public:
   void add(cBoard &b) {
     cAutolock a(m_mutex);
     m_boards.push_back(b);
+    printf("Adding solution\n");
   }
   void print() {
     cAutolock a(m_mutex);
@@ -136,6 +137,8 @@ public:
 };
 
 int main(int argc, char *argv[]) {
+  assert(sizeof(board_t) == 8);
+
   cBoard board;
   cSolution solution;
   /* We start with only one worker. */

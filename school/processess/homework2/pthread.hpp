@@ -103,8 +103,8 @@ public:
     m_sleeptime.tv_nsec = sleep_nsec;
   }
   virtual ~aPThread() {
-    m_bkilled = true;
-    pthread_join(m_thread, NULL);
+    kill();
+    wait();
   }
 
   void kill() {
