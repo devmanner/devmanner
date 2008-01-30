@@ -1,0 +1,136 @@
+-module(table).
+
+-export([test/0]).
+
+test() ->
+    io:format("~s", [bs_to_string(get_bs())]),
+    io:format("~s", [bs_to_string(get_empty())]),
+    io:format("~s", [bl_to_string(get_bl())]),
+    io:format("~s", [bl_to_string(get_empty())]).
+
+bl_to_string({ok, L}) ->
+    Start = lists:flatten(io_lib:format("| ~s | ~s | ~s | ~10s | ~17s | ~17s | ~15s | ~10s | ~10s | ~10s |~n",
+					["Subrack", "Slot", "BsNo", "BsId", "Swg Lowest", "Swg Actual", "User Label", "Adm State", "Op State", "AvailState"])),
+    Fun = fun({{Subrack, Slot}, Desc}, Acc) ->
+		  {value, {bs_no, BsNo}} = lists:keysearch(bs_no, 1, Desc),
+		  {value, {user_label, UserLabel}} = lists:keysearch(user_label, 1, Desc),
+		  {value, {adm_state, AdmState}} = lists:keysearch(adm_state, 1, Desc),
+		  {value, {op_state, OpState}} = lists:keysearch(op_state, 1, Desc),
+		  {value, {avail_state, AvailState}} = lists:keysearch(avail_state, 1, Desc),
+		  {value, {bs_id, BsId}} = lists:keysearch(bs_id, 1, Desc),
+		  {value, {swg_lowest, SwgLowestCXS, SwgLowestRev}} = lists:keysearch(swg_lowest, 1, Desc),
+		  {value, {swg_actual, SwgActualCXS, SwgActualRev}} = lists:keysearch(swg_actual, 1, Desc),
+		  Acc ++ lists:flatten(io_lib:format("| ~7w | ~4w | ~4w | ~10s | ~10s ~6s | ~10s ~6s | ~15s | ~10s | ~10s | ~10s |~n",
+						     [Subrack, Slot, BsNo, BsId, SwgLowestCXS, SwgLowestRev, SwgActualCXS, SwgActualRev, UserLabel, AdmState, OpState, AvailState]))
+	  end,
+    lists:foldl(Fun, Start, L).
+
+bs_to_string({ok, L}) ->
+    Start = lists:flatten(io_lib:format("| ~s | ~s | ~10s | ~6s | ~10s | ~6s | ~10s | ~10s | ~10s | ~10s |~n",
+					["Identifier", "BsNo", "SWG", "Rev", "CXR", "Rev", "User Label", "Adm State", "Op State", "AvailState"])),
+    Fun = fun({Bs, Desc}, Acc) ->
+		  {value, {bs_no, BsNo}} = lists:keysearch(bs_no, 1, Desc),
+		  {value, {user_label, UserLabel}} = lists:keysearch(user_label, 1, Desc),
+		  {value, {adm_state, AdmState}} = lists:keysearch(adm_state, 1, Desc),
+		  {value, {op_state, OpState}} = lists:keysearch(op_state, 1, Desc),
+		  {value, {avail_state, AvailState}} = lists:keysearch(avail_state, 1, Desc),
+		  {value, {bs_swg, BsSwgCXS, BsSwgRev}} = lists:keysearch(bs_swg, 1, Desc),
+		  {value, {cxr, CXR, CXRRev}} = lists:keysearch(cxr, 1, Desc),
+		  Acc ++ lists:flatten(io_lib:format("| ~10s | ~4w | ~10s | ~6s | ~10s | ~6s | ~10s | ~10s | ~10s | ~10s |~n",
+						     [Bs, BsNo, BsSwgCXS, BsSwgRev, CXR, CXRRev, UserLabel, AdmState, OpState, AvailState]))
+	  end,
+    lists:foldl(Fun, Start, L).
+
+get_empty() ->
+    {ok, []}.
+
+get_bs() ->
+    {ok,[{"bs_SIS_1",
+	  [{bs_no,1},
+	   {bs_swg,"CXS10138","R1G67"},
+	   {cxr,"CXR1010168","R1F02"},
+	   {user_label,"SIS"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {"bs_MXB_2",
+	  [{bs_no,2},
+	   {bs_swg,"CXS10144","R1G09"},
+	   {cxr,"CXR1010192","R1D03"},
+	   {user_label,"MXB slot 0"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {"bs_MXB_3",
+	  [{bs_no,3},
+	   {bs_swg,"CXS10144","R1G09"},
+	   {cxr,"CXR1010192","R1D03"},
+	   {user_label,"MXB slot 25"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {"bs_TGC_4",
+	  [{bs_no,4},
+	   {bs_swg,"CXS10165","R2A06"},
+	   {cxr,[],[]},
+	   {user_label,"tgc_1"},
+	   {adm_state,unlocked},
+	   {op_state,disabled},
+	   {avail_state,failed}]}]}.
+
+get_bl() ->
+    {ok,[{{0,0},
+	  [{bs_no,2},
+	   {bs_id,"bs_MXB_2"},
+	   {swg_lowest,"CXS10143","R1A"},
+	   {swg_actual,"CXS10143","R1G48"},
+	   {user_label,"MXB slot 0"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {{0,1},
+	  [{bs_no,1},
+	   {bs_id,"bs_SIS_1"},
+	   {swg_lowest,"CXS10137","R1A"},
+	   {swg_actual,"CXS10137","R1G27"},
+	   {user_label,"sis1"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {{0,3},
+	  [{bs_no,4},
+	   {bs_id,"bs_TGC_4"},
+	   {swg_lowest,"CXS101004","R2A"},
+	   {swg_actual,"CXS101004","R2A03"},
+	   {user_label,[]},
+	   {adm_state,unlocked},
+	   {op_state,disabled},
+	   {avail_state,startingUp}]},
+	 {{0,4},
+	  [{bs_no,4},
+	   {bs_id,"bs_TGC_4"},
+	   {swg_lowest,"CXS101004","R2A"},
+	   {swg_actual,"CXS101004","R2A03"},
+	   {user_label,[]},
+	   {adm_state,unlocked},
+	   {op_state,disabled},
+	   {avail_state,startingUp}]},
+	 {{0,13},
+	  [{bs_no,1},
+	   {bs_id,"bs_SIS_1"},
+	   {swg_lowest,"CXS10137","R1A"},
+	   {swg_actual,"CXS10137","R1G27"},
+	   {user_label,"sis2"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]},
+	 {{0,25},
+	  [{bs_no,3},
+	   {bs_id,"bs_MXB_3"},
+	   {swg_lowest,"CXS10143","R1A"},
+	   {swg_actual,"CXS10143","R1G48"},
+	   {user_label,"MXB slot 25"},
+	   {adm_state,unlocked},
+	   {op_state,enabled},
+	   {avail_state,available}]}]}.
+
