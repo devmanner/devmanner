@@ -1,0 +1,24 @@
+Step1:
+================================
+
+ResuestPhonebook:
+{Uid, Passwd, get_phonebook} ->
+[{Uid, FullName, Profile, ContactInfo},
+ {Uid, FullName, Profile, ContactInfo},
+ ...]
+or {error, Message}
+
+RegisterChange:
+{uid, Passwd, register_change, {Profile, ContactInfo}} ->
+ok
+or {error, Message}
+
+Step2:
+================================
+
+RequestUpdates:
+{Uid, Passwd, get_updates} ->
+[{Uid, FullName, Profile, ContactInfo},
+ {Uid, FullName, Profile, ContactInfo},
+ ...]
+or {error, Message}
