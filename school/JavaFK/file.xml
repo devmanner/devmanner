@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE addressentries [
+       <!ELEMENT addressentries ( person+ )>
+       <!ELEMENT person ( FirstName, LastName, Address, TelNr )>
+       <!ATTLIST person gender ( M | F ) "M">
+       <!ELEMENT FirstName ( #PCDATA )>
+       <!ELEMENT LastName ( #PCDATA )>
+       <!ELEMENT Address ( #PCDATA )>
+       <!ELEMENT TelNr ( #PCDATA )>
+]>
+
+<addressentries>
+  <person gender="F">
+    <FirstName>Sue</FirstName>
+    <LastName>Ellen</LastName>
+    <Address>1234 IAHO</Address>
+    <TelNr>09-777777</TelNr>
+  </person>
+  <person>
+    <FirstName>Kalle</FirstName>
+    <LastName>Karlsson</LastName>
+    <Address>43232 NY</Address>
+    <TelNr>01-2222222</TelNr>
+  </person>
+</addressentries>

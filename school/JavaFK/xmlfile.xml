@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- encoding="iso-8859-1" -->
+
+<!DOCTYPE persons [ 
+          <!ELEMENT persons (family*)>
+	  <!ELEMENT family (father, son)>
+	  <!ELEMENT father (#PCDATA)>
+	  <!ELEMENT son (#PCDATA)>
+]>
+
+<persons>
+<family>
+  <father>Pappa Persson</father>
+  <son>Äldre Sonen Persson</son>
+</family>
+<family>
+  <father>Pappa Svensson</father>
+  <son>Sonen Svensson</son>
+</family>
+</persons>

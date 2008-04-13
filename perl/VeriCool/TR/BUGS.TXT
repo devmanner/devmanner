@@ -1,0 +1,18 @@
+#########################################################################
+# BUGS.TXT                                                              #
+# CREATED: 00-06-14                                                     #
+# AUTHOR: Tomas Mannerstedt                                             #
+# MAIL: qtxtman@etxb.ericsson.se                                        #
+#########################################################################
+# KNOWN BUGS IN THE VERICOOL TR SYSTEM.                                 #
+#                                                                       #
+# If more than 1e+15 -1 TR's are reported old files may be overwritten. #
+#                                                                       #
+# TR's may be incorrectyly displayed if a TR contains ###. This is      #
+# because ### is used as a separator in the database files.             #
+#                                                                       #
+# Ugly and quite confuseing code in ViewTRTree.pl                       #
+#                                                                       #
+# Seems like users have to login twice to get the cookie written.       #
+#########################################################################
+

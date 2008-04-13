@@ -1,0 +1,70 @@
+<HTML>  
+
+<HEAD>
+<TITLE>The VeriCool Website</TITLE>
+
+<!--#include file="MenuBar.shtml" -->
+
+</HEAD>
+
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#33FF00" VLINK="#CCFF00" ALINK="#FF0000" onload="init()">
+<BR><BR>
+
+<FONT SIZE="3" FACE"Footlight MT Light">
+<CENTER>
+<H1>Help on TR</H1>
+<TABLE WIDTH="80%">
+<TR><TD>
+<CENTER><H3>General</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+The TR system for VeriCool is a totally web based TR system created by Tomas Mannerstedt. It is integrated in the VeriCool Website. You can use The VeriCool Website without the TR system but you can't (without modifications) use the TR system without VeriCool.<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;
+You can set up the $sendmail vareable in the /home/htdocs/cgi-bin/Mustang/VeriCool/TR/Report.pl script. If 1 it send mail to responsible persson, if 0 i doesn't. 
+</P>
+
+<CENTER><H3>Reporting a Trouble</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+To report a trouble click &quot;Compose new TR&quot; under &quot;TR&quot; on the menubar. A HTML form will appear on the screen. Fill out the form. All fields must be filled out. Post the TR by clicking &quot;Report&quot;. To clear the form and start over click &quot;Clear Form&quot;.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;
+If a release or a block is selected in the VeriCool view tree tat perticular block / release will be pre selected.
+</P>
+
+<CENTER><H3>Posting a follow up</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+To post a follow up click the link below the TR. A HTML form, simular to the &quot;Compose new TR&quot; form, will be displayed. All the fields in the form will must be filled out. If the status is set to &quot;Finish&quot;, the TR will be moved to the TR Archive. It will be found under the menu with the same name in the menubar.
+</P>
+
+<CENTER><H3>Viewing TR's</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+To view the TR's use one of the &quot;Sort Descending&quot;, &quot;Sort Ascending&quot;, &quot;View Latest 10&quot; and &quot;Advanced Sort&quot; under TR in the menubar. The Advanced Sort will be explained in a later chapter. &quot;Sort Descending&quot;, &quot;Sort Ascending&quot; can also be found under &quot;TR Archive&quot; in the menubar.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;
+<B>&quot;Sort Descending&quot;:</B> Displays all the TR's (not archive) sorting descending on date.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;
+<B>&quot;Sort Ascending&quot;:</B> Displays all the TR's (not archive) sorting ascending on date.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;
+<B>&quot;View Latest 10&quot;:</B> Displays the latest 10 reported TR's in descending sort.
+</P>
+
+<CENTER><H3>Advanced Sort</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+The advanced sort allows you to view TR's matching criteria you fill out in the Advanced Sort form. The boolean operator is OR. We're working on an AND option, but it's not finished yet...
+</P>
+
+<CENTER><H3>TR-Admin</H3></CENTER>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+This option allowd user to delete posted TR's. This script must be protected by some password protection. .htaccess protection is enough. This option is not implemented yet since we've had some problems with the .htaccess. The Admin mode is set by calling the ViewTR.pl script with the argument Admin.
+</P>
+
+<BR><BR>
+
+</TD></TR>
+</TABLE>
+
+</BODY>
+</HTML>

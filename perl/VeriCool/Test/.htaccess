@@ -1,0 +1,8 @@
+AuthName "You must log on as pr-traco to access this page."
+AuthType Basic
+
+AuthDBMUserFile /home/htdocs/cgi-bin/Mustang/VeriCool/Test/.htpasswd
+AuthGroupFile /dev/null
+
+require valid-user
+

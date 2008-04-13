@@ -1,0 +1,65 @@
+<HTML>  
+
+<HEAD>
+<TITLE>The VeriCool Website</TITLE>
+
+<!--#include file="MenuBar.shtml" -->
+
+</HEAD>
+
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#33FF00" VLINK="#CCFF00" ALINK="#FF0000" onload="init()">
+<BR><BR>
+
+<FONT SIZE="3" FACE"Footlight MT Light">
+<CENTER>
+<H1>Advanced TR Search</H1>
+<TABLE WIDTH="80%">
+<TR><TD>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+This page allows you to sort reported TR's in the way you whant to view 'em. Select sort options in the form below.
+</P>
+</TD></TR>
+</TABLE>
+
+<TABLE WIDTH="80%">
+<FORM METHOD="POST" ACTION="http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl">
+
+<TR><TD>
+View TR's on the following Releases:
+</TD><TD>
+<INPUT TYPE=CHECKBOX NAME="Release" VALUE="TRACO_R1A03">TRACO_R1A03
+<INPUT TYPE=CHECKBOX NAME="Release" VALUE="TRACO_R1A02">TRACO_R1A02
+<INPUT TYPE=CHECKBOX NAME="Release" VALUE="TRACO_R1A01">TRACO_R1A01
+</TD></TR>
+
+<TR><TD>
+View TR's on the following Blocks:
+</TD><TD>
+<INPUT TYPE=CHECKBOX NAME="Block" VALUE="ST">ST
+<BR>
+<INPUT TYPE=CHECKBOX NAME="Block" VALUE="TB">TB
+</TD></TR>
+
+<TR><TD>
+Sort order:
+</TD><TD>
+<INPUT CHECKED TYPE=RADIO NAME="SortOrder" VALUE="Desc">Descending
+<BR>
+<INPUT TYPE=RADIO NAME="SortOrder" VALUE="Asc">Ascending
+</TD></TR>
+
+
+<TR><TD>
+
+<INPUT TYPE=HIDDEN NAME="Prio" VALUE="">
+<INPUT TYPE=HIDDEN NAME="Status" VALUE="">
+<INPUT TYPE=HIDDEN NAME="ReportedBy" VALUE="">
+<INPUT TYPE=submit VALUE="Submit">
+</TD></TR>
+
+</FORM>
+</TABLE>
+
+</BODY>
+</HTML>

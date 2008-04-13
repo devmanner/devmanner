@@ -1,0 +1,32 @@
+<HTML>  
+
+<HEAD>
+<TITLE>The VeriCool Website</TITLE>
+
+<!--#include file="MenuBar.shtml" -->
+
+</HEAD>
+
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#33FF00" VLINK="#CCFF00" ALINK="#FF0000" onload="init()">
+<BR><BR>
+
+<FONT SIZE="3" FACE"Footlight MT Light">
+<CENTER>
+<IMG SRC="pics/VeriCoolLogo.gif">
+<H1>Welcome to The VeriCool Website</H1>
+<TABLE WIDTH="80%">
+<TR><TD>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+This is the VeriCool (VERsIon COntrOLler) Website. Use the menu to the left to navigate between the different releases and blocks. The TR sysyem can be used to report troubles.
+<BR>&nbsp;&nbsp;&nbsp;&nbsp;
+Right now I'm testing the system. That may cause some of the scripts to be down or returning strange information. Be patient.
+</P>
+<P ALIGN="right">
+/ <I>Webmaster<BR><A HREF="mailto:qtxtman@etxb.ericsson.se">Tomas Mannerstedt</A></I>
+</P>
+</TD></TR>
+</TABLE>
+
+</BODY>
+</HTML>

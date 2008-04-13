@@ -1,0 +1,89 @@
+<!-- This code is included (SSI or by a cgi-script) from MenuBar.shtml. -->
+
+<SCRIPT LANGUAGE="JavaScript" src="http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/navcond.js">
+</SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+var myNavBar, menu;
+
+myNavBar = new NavBar(500);
+myNavBar.setSizes(1, 2, 1);
+myNavBar.setColors("#FFFFFF", "#000000", "#6699FF", "#FFFFFF", "#0000FF", "#000000", "#FFFFFF", "#FFFFFF", "#0000FF");
+myNavBar.setFonts("Arial, Helvetica", "plain", "bold", "10pt", "Arial, Helvetica", "plain", "bold", "10pt");
+
+menu = new NavBarMenu(50, 100);
+menu.addItem(new NavBarMenuItem("Tools"));
+menu.addItem(new NavBarMenuItem("Reload VeriCool Website", "javascript:window.top.location='http://avweb.etxb.ericsson.se/~pr-traco/VeriCool'"));
+myNavBar.addMenu(menu);
+
+menu = new NavBarMenu(40, 110);
+menu.addItem(new NavBarMenuItem("Go!"));
+menu.addItem(new NavBarMenuItem("VeriCool Mainpage", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/Main.shtml"));
+menu.addItem(new NavBarMenuItem("Mustang Website", "javascript:window.top.location='http://avweb.etxb.ericsson.se/Mustang/'"));
+menu.addItem(new NavBarMenuItem("TRACO Website", "javascript:window.top.location='http://avweb.etxb.ericsson.se/~pr-traco/'"));
+myNavBar.addMenu(menu);
+
+menu = new NavBarMenu(40, 100);
+menu.addItem(new NavBarMenuItem("TR"));
+menu.addItem(new NavBarMenuItem("Compose new TR", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/GenIssueForm.pl"));
+menu.addItem(new NavBarMenuItem("Sort Descending", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl?Issue+DescByDate"));
+menu.addItem(new NavBarMenuItem("Sort Ascending", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl?Issue+AscByDate"));
+menu.addItem(new NavBarMenuItem("View Latest 10", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl?Issue+LastTen"));
+menu.addItem(new NavBarMenuItem("Advanced Sort", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/AdvancedSort.pl"));
+myNavBar.addMenu(menu);
+
+menu = new NavBarMenu(80, 120);
+menu.addItem(new NavBarMenuItem("TR Archive"));
+menu.addItem(new NavBarMenuItem("View Arch. Descending", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl?Archive+DescByDate"));
+menu.addItem(new NavBarMenuItem("View Arch. Ascending", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewTR.pl?Archive+AscByDate"));
+menu.addItem(new NavBarMenuItem("View Statistics", "http://avweb.etxb.ericsson.se/cgi-bin/Mustang/VeriCool/TR/ViewStat.pl"));
+myNavBar.addMenu(menu);
+
+menu = new NavBarMenu(100, 110);
+menu.addItem(new NavBarMenuItem("Documentation"));
+menu.addItem(new NavBarMenuItem("Description on VC", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/Help/description.shtml"));
+menu.addItem(new NavBarMenuItem("User's Guide", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/Help/userGuide.shtml"));
+menu.addItem(new NavBarMenuItem("Help on TR", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/AboutTR.shtml"));
+menu.addItem(new NavBarMenuItem("About the Website", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/AboutWebsite.shtml"));
+myNavBar.addMenu(menu);
+
+menu = new NavBarMenu(60, 110);
+menu.addItem(new NavBarMenuItem("About"));
+menu.addItem(new NavBarMenuItem("About VeriCool", "http://avweb.etxb.ericsson.se/~pr-traco/VeriCool/AboutVeriCool.shtml"));
+menu.addItem(new NavBarMenuItem("Contact Webmaster", "mailto:qtxtman@etxb.ericsson.se"));
+myNavBar.addMenu(menu);
+
+function init() {
+
+	// Create the navigation bars.
+	myNavBar.resize(getWindowWidth());
+	myNavBar.create();
+	updatePosition();
+}
+
+function updatePosition() {
+
+	var viewTop, viewBottom;
+	var dy;
+
+	viewTop = getPageScrollY();
+	viewBottom = viewTop + getWindowHeight();
+
+	if (myNavBar.bottom < viewTop)
+		myNavBar.moveTo(0, viewTop - myNavBar.height);
+
+	if (myNavBar.top > viewBottom)
+		myNavBar.moveTo(0, viewBottom);
+
+	dy = Math.round(Math.abs(viewTop - myNavBar.y) / 2);
+	if (viewTop < myNavBar.y)
+		dy = -dy;
+
+	myNavBar.moveBy(0, dy);
+	setTimeout('updatePosition()', 25);
+}
+
+</SCRIPT>
+
+<!-- End of included text. -->

@@ -1,0 +1,26 @@
+<HTML>  
+
+<HEAD>
+<TITLE>The VeriCool Website</TITLE>
+
+<!--#include file="MenuBar.shtml" -->
+
+</HEAD>
+
+<BODY BGCOLOR="#000000" TEXT="#FFFFFF" LINK="#33FF00" VLINK="#CCFF00" ALINK="#FF0000" onload="init()">
+<BR><BR>
+
+<FONT SIZE="3" FACE"Footlight MT Light">
+<CENTER>
+<H1>About...</H1>
+<TABLE WIDTH="80%">
+<TR><TD>
+<P align="adjust">
+&nbsp;&nbsp;&nbsp;&nbsp;
+The VeriCool System was created by Niklas Engvall and Tomas Mannerstedt.
+</P>
+</TD></TR>
+</TABLE>
+
+</BODY>
+</HTML>

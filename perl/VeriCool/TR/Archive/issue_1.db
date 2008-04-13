@@ -1,0 +1,9 @@
+next###/home/htdocs/cgi-bin/Mustang/VeriCool/TR/Archive/fu_issue_2.db
+date###15:22:33.Fri.18.May.2001
+block###TB_VEUADPCM_PS
+description###Word mismatch between stimuli mem and real mem. Stimuli mem has 32-bit words, while real mem has 16-bit!
+header###Memory load error!
+prio###Critical
+release###TRACO_R1A06
+reporter###etxemsa
+status###Issue

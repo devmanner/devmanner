@@ -1,0 +1,9 @@
+next###/home/htdocs/cgi-bin/Mustang/VeriCool/TR/Issue/fu_issue_107.db
+date###13:08:14.Fri.29.Jun.2001.
+block###VEU
+description###EMC has Rd Data buswidth missmatch.<BR>32/16.<BR>
+header###Buswidth missmatch
+prio###Normal
+release###TRACO_R1A08
+reporter###qtxnike
+status###Issue

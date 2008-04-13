@@ -1,0 +1,10 @@
+next###
+prev###/home/htdocs/cgi-bin/Mustang/VeriCool/TR/Archive/fu_issue_2.db
+date###17:16:26.Fri.18.May.2001
+block###TB_VEUADPCM_PS
+description###stimuliMem, responseMem & ctrl blocks<BR>in testbench was changed to 16 bit<BR>format.
+header###problem sloved
+prio###Critical
+release###TRACO_R1A06
+reporter###qtxnike
+status###Finish

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="userGuide.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Vericool User Guide
+</TITLE>
+<!--#include file="MenuBar.shtml" -->
+</HEAD>
+<BODY BGCOLOR="#ffffff" onload="init()">
+<DIV>
+<H1 CLASS="Title">
+<A NAME="pgfId-751578"></A>Vericool User Guide</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Contents">
+<A NAME="pgfId-752177"></A> &nbsp;</H1>
+<UL>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-779531"></A>1	Block Release	1</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-779532"></A>1.1	Who Can Release my Block?	1</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-779533"></A>1.2	How do I Release it?	1</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-779534"></A>1.3	Vericool Block Releaser	2</LI>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-779535"></A>2	Build	3</LI>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-779536"></A>3	Regression	4</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-779537"></A>3.1	What Should be Tested before a Release	4</LI>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-779538"></A>4	Release	4</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-779539"></A>4.1	Archiving the Release	4</LI>
+</UL>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-779442"></A>Block Release</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-777525"></A>Who Can Release my Block?</H1>
+<P CLASS="Para">
+<A NAME="pgfId-777528"></A>Only the owner of the block can do a release. Not really true; also the super user for the project can release the block. Both these options apply only if you use the Vericool Block Releaser. If you use clearcase directly no such limitations are in place.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-777526"></A>How do I Release it?</H1>
+<P CLASS="Para">
+<A NAME="pgfId-777527"></A>Simply start the Vericool Block Releaser. A GUI will pop up. In this GUI you can select the desired block you want to release. Only the blocks you are responsible for will be displayed in the blocks menu. <BR>
+If you are logged in as super user (pr-traco) all blocks in the design will be releasable.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-779180"></A>Vericool Block Releaser</H1>
+<P CLASS="Para">
+<A NAME="pgfId-779297"></A>Start command:<BR>
+/vobs/AXD30/ASIC/TRACO_ROP1011611/vericool/scripts/BlockReleaser</P>
+<P CLASS="Para">
+<A NAME="pgfId-779193"></A>A release with Vericool Block Releaser is illustrated below.</P>
+<DIV>
+<IMG SRC="userGuide-1.gif">
+</DIV>
+<P CLASS="Para">
+<A NAME="pgfId-779229"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="userGuide-2.gif">
+</DIV>
+<P CLASS="Para">
+<A NAME="pgfId-779270"></A>The Vericool Block Releaser has built in support for labelling. A faulty label will not be produced by the Block Releaser. A recommendation is to always use it for block releases.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-756239"></A>Build</H1>
+<P CLASS="Para">
+<A NAME="pgfId-779305"></A>The build step is fairly simple to do. All you have to do is run the script:<BR>
+This script will then generate the files needed to do a release. The files are generated in directory: <BR>
+</P>
+<DIV>
+<IMG SRC="userGuide-3.gif">
+</DIV>
+<DIV>
+<IMG SRC="userGuide-4.gif">
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-779354"></A>Regression</H1>
+<P CLASS="Para">
+<A NAME="pgfId-779355"></A>Although the regression step does not directly have something to do with Vericcol I should mention some words about it anyway.</P>
+<P CLASS="Para">
+<A NAME="pgfId-779356"></A>The idea is to set the config specs (files with prefix cs_) generated in the build directory. Clearcase will then select the files according to the label. The regression can tehn be done with the released files.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-779362"></A>What Should be Tested before a Release</H1>
+<P CLASS="Para">
+<A NAME="pgfId-779363"></A>This is the tricky question. The answer is a trade of between full functionality/fast release procedure. The following steps are mandatory though:</P>
+<UL>
+<LI CLASS="ListUnordered">
+<A NAME="pgfId-779364"></A>File Generation from Graphical tool (Renoir)</LI>
+<LI CLASS="ListUnordered">
+<A NAME="pgfId-779365"></A>Design Compilation</LI>
+<LI CLASS="ListUnordered">
+<A NAME="pgfId-779555"></A>Load and start the design in simulator</LI>
+</UL>
+<P CLASS="Para">
+<A NAME="pgfId-779556"></A>If any of these test fails the design must not be released. As test cases are developed they can be placed in the regression test also. However, if a testcase (except from the mandatory) fails the release does not have to be delayed. If this happens it is up to the team to make a decision to make the release anyway.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-779361"></A>Release</H1>
+<P CLASS="Para">
+<A NAME="pgfId-756457"></A>When you are confident that the build is stabile it is time to do the release. You simply run the script:<BR>
+This script will make the release public, moving files from the build directory to /home/pr-traco/releases. </P>
+<DIV>
+<IMG SRC="userGuide-5.gif">
+</DIV>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-779385"></A>Archiving the Release</H1>
+<P CLASS="Para">
+<A NAME="pgfId-779395"></A>The release script also generates a compressed archive file. This file can be retrieved if a release accidentally is removed from the &#126;pr-traco/releases directory. The script does not automatically store this archive in clearcase so you have to do this yourself with the following commands:</P>
+<DIV>
+<IMG SRC="userGuide-6.gif">
+</DIV>
+</DIV>
+</BODY>
+</HTML>

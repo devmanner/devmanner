@@ -1,0 +1,9 @@
+next###
+date###09:24:42.Fri.8.Jun.2001
+block###C_MODEL_ADPCM_MOD
+description###Signalen tx_type & txType loggas i<BR>dumpfilen. Jag antar att det är txType<BR>man är intresserad av<BR>  /Nicklas
+header###txType Förvirring
+prio###Low
+release###TRACO_R1A07
+reporter###qtxnike
+status###Issue

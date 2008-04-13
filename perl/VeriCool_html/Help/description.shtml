@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="description.css" CHARSET="ISO-8859-1" TYPE="text/css">
+<TITLE>
+ Automatic Release Handling with ClearCase (Vericool)
+</TITLE>
+<!--#include file="MenuBar.shtml" -->
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" onload="init()">
+<DIV>
+<H1 CLASS="Title">
+<A NAME="pgfId-751578"></A>Automatic Release Handling with ClearCase (Vericool)</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Contents">
+<A NAME="pgfId-752177"></A> &nbsp;</H1>
+<UL>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-774648"></A>1	Environment	1</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-774649"></A>1.1	Directory Structure	2</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-774650"></A>1.2	Project Initialisation	3</LI>
+<LI CLASS="Heading3TOC">
+<A NAME="pgfId-774651"></A>1.2.1	The Ini File	3</LI>
+<LI CLASS="Heading3TOC">
+<A NAME="pgfId-774652"></A>1.2.2	The Default Config Spec	4</LI>
+<LI CLASS="Heading1TOC">
+<A NAME="pgfId-774653"></A>2	Release Handling	5</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-774654"></A>2.1	Build	5</LI>
+<LI CLASS="Heading3TOC">
+<A NAME="pgfId-774655"></A>2.1.1	Idea	5</LI>
+<LI CLASS="Heading3TOC">
+<A NAME="pgfId-774656"></A>2.1.2	What is done	5</LI>
+<LI CLASS="Heading2TOC">
+<A NAME="pgfId-774657"></A>2.2	Release	8</LI>
+</UL>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-752165"></A>Environment</H1>
+<P CLASS="Para">
+<A NAME="pgfId-756237"></A>The core part of the environment is built up by three perl scripts. These scripts are used to automate the release procedure. The idea is that the user should not have to think to much when releasing the design/tb.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-756239"></A>Directory Structure</H1>
+<P CLASS="Para">
+<A NAME="pgfId-774514"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="description-1.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-774516"></A><A NAME="31946"></A>Vericool directory structure</LI>
+</OL>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-774517"></A>Project Initialisation</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Heading3">
+<A NAME="pgfId-774251"></A>The Ini File</H1>
+<P CLASS="Para">
+<A NAME="pgfId-756274"></A>All setup for the vericool scripts to work is setup in the ini file (see <A HREF="description.html#31946" CLASS="XRef">See Vericool directory structure</A>). </P>
+<DIV>
+<IMG SRC="description-2.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-756275"></A>The project ini file.</LI>
+</OL>
+<P CLASS="Para">
+<A NAME="pgfId-756315"></A>Each block in the design is associated with the top directory and with the block label (except revision e.g. R1A01).</P>
+<P CLASS="Para">
+<A NAME="pgfId-774237"></A>You also associate each user (login name) with the block(s) he is responsible for see <A HREF="description.html#76086" CLASS="XRef">See Each user will then get a unique config spec. that will perform the latest method on his blocks but will lablelled versions on the other blocks (files) in the design. This also enables the Vericool Block Releaser to select the blocks for each user.</A>. </P>
+<OL>
+<LI CLASS="Note-">
+<A NAME="pgfId-774241"></A><A NAME="76086"></A>Each user will then get a unique config spec. that will perform the latest method on his blocks but will lablelled versions on the other blocks (files)  in the design.<BR>
+This also enables the Vericool Block Releaser to select the blocks for each user.</LI>
+</OL>
+<P CLASS="Para">
+<A NAME="pgfId-774250"></A>Finally the design name is setup. From this the design release name is generated (e.g. TRACO_R1A)</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading3">
+<A NAME="pgfId-774252"></A>The Default Config Spec</H1>
+<P CLASS="Para">
+<A NAME="pgfId-774253"></A>The default config spec file is used as a base when generating config specs see <A HREF="description.html#71650" CLASS="XRef">See Generation of Config Specs.</A> </P>
+<DIV>
+<IMG SRC="description-3.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-774335"></A><A NAME="71650"></A>Generation of Config Specs.</LI>
+</OL>
+</DIV>
+<DIV>
+<H1 CLASS="Heading1">
+<A NAME="pgfId-756317"></A>Release Handling</H1>
+<P CLASS="Para">
+<A NAME="pgfId-756349"></A>The release procedure is built up by two steps build and release that are described below. Before a build can be done all blocks must have been released (i.e a label applied to all block files.)</P>
+<DIV>
+<IMG SRC="description-4.gif">
+</DIV>
+<P CLASS="Para">
+<A NAME="pgfId-756388"></A>After the build has been done some kind of regression must be performed to validate that the design/tb is OK to run. Annoying problems such as problem to generate/compile the design/tb must not happen.<BR>
+When the regression passes the release can be performed.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-756291"></A>Build</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Heading3">
+<A NAME="pgfId-752359"></A>Idea</H1>
+<P CLASS="Para">
+<A NAME="pgfId-752364"></A>Basically this step prepares the circuit for the release. But before a release can be performed a regression test of the release must be done to verify that the design/tb is OK.</P>
+<P CLASS="Para">
+<A NAME="pgfId-756435"></A>Clearcase config specs are generated for the build. These config specs are set and then selects the correct file versions for the release.</P>
+</DIV>
+<DIV>
+<H1 CLASS="Heading3">
+<A NAME="pgfId-752365"></A>What is done</H1>
+<P CLASS="Para">
+<A NAME="pgfId-752310"></A>To be able to make a build the script needs to know the previously released label for each block. This is done for being able to extract a delta of comments from the last release to the currently released label.</P>
+<P CLASS="Para">
+<A NAME="pgfId-752354"></A>All comments will then be automatically extracted between the new and the latest release. This is done with the clearcase command lsvtree, see <A HREF="description.html#22422" CLASS="XRef">See Clearcase command lsvtree log.</A> </P>
+<P CLASS="Para">
+<A NAME="pgfId-774541"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="description-5.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-756397"></A><A NAME="22422"></A>Clearcase command lsvtree log.</LI>
+</OL>
+<P CLASS="Para">
+<A NAME="pgfId-752471"></A><A HREF="description.html#22422" CLASS="XRef">See Clearcase command lsvtree log.</A> shows an example of the Clearcase command lsvtree. The command reports all labels that has been applied on an element for build script to sort.</P>
+<P CLASS="Para">
+<A NAME="pgfId-774544"></A>All files generated are generated in a build directory. In <A HREF="description.html#55276" CLASS="XRef">See Build step.</A> you can see the files that are generated in the build step.</P>
+<P CLASS="Para">
+<A NAME="pgfId-774635"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="description-6.gif">
+</DIV>
+<P CLASS="Para">
+<A NAME="pgfId-774636"></A>&nbsp;</P>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-774638"></A><A NAME="55276"></A>Build step. </LI>
+</OL>
+<P CLASS="Para">
+<A NAME="pgfId-774549"></A>The build step generates a file with all block configuration information see <A HREF="description.html#49663" CLASS="XRef">See Build file. &lt;buildName&gt;.build.</A> </P>
+<DIV>
+<IMG SRC="description-7.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-755728"></A><A NAME="49663"></A>Build file. &lt;buildName&gt;.build.</LI>
+</OL>
+</DIV>
+<DIV>
+<H1 CLASS="Heading2">
+<A NAME="pgfId-755660"></A>Release</H1>
+<P CLASS="Para">
+<A NAME="pgfId-752225"></A>This step basically moves the release status to official. This step updates the release on the WEB, clearcase etc. basically makes the release public.</P>
+<P CLASS="Para">
+<A NAME="pgfId-755807"></A>The release script generates a directory structure <A HREF="description.html#24889" CLASS="XRef">See Generated release directory structure.</A> </P>
+<DIV>
+<IMG SRC="description-8.gif">
+</DIV>
+<OL>
+<LI CLASS="FigureNum">
+<A NAME="pgfId-756007"></A><A NAME="24889"></A>Generated release directory structure.</LI>
+</OL>
+<P CLASS="Para">
+<A NAME="pgfId-756457"></A>The release also deletes all files in the build directory and copies the release.conf file to the home/pr-traco/releases/prevReleases<BR>
+directory. The next time a build is done the build script automatically creates a new release name depending on the last release.</P>
+<P CLASS="Para">
+<A NAME="pgfId-774860"></A>The release script also makes a compressed archive file of the release directory and copies it to directory: /vobs/AXD30/ASIC/TRACO_ROP1011611/releaseArchive.</P>
+</DIV>
+</BODY>
+</HTML>

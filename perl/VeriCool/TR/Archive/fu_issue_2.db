@@ -1,0 +1,10 @@
+next###/home/htdocs/cgi-bin/Mustang/VeriCool/TR/Archive/fu_issue_3.db
+prev###/home/htdocs/cgi-bin/Mustang/VeriCool/TR/Archive/issue_1.db
+date###16:07:57.Fri.18.May.2001
+block###TB_VEUADPCM_PS
+description###32-&gt;16 for stimuli/response mems<BR>will be fixed in next release. by qtxnike<BR><BR>C model has to be updated so more than<BR>one frame can be run by decoder.<BR><BR>otherwise the sim looks OK for me.<BR><BR>/Nicklas
+header###dumpfile probl.
+prio###Critical
+release###TRACO_R1A06
+reporter###qtxnike
+status###Follow up
