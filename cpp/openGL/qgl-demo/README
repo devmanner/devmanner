@@ -1,0 +1,33 @@
+qgl-demo
+A simple demonstration of OpenGL in Qt.
+Created for an OpenGL article on
+http://www.zez.org
+
+----------------------------------------------------------------------
+Copyright (C) 2001 eZ systems as, Norway
+(http://www.ez.no)
+
+Released under the GNU General Public License (GPL)
+See the file COPYING for details.
+
+
+----------------------------------------------------------------------
+Requirements:
+Qt-2.2 and tmake
+(Available from www.trolltech.com)
+Qt must be compiled with OpenGL enabled.
+
+
+----------------------------------------------------------------------
+Build instructions:
+tar -zxf qgl-demo.tar.gz
+cd qgl-demo
+tmake -o Makefile qgl-demo.pro
+make
+./qgl-demo
+
+
+----------------------------------------------------------------------
+Author:
+Gunnstein Lye <gl@ez.no>
+

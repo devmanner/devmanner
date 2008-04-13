@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: NewProject - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\kitofr\LOCALS~1\Temp\RSP542.tmp" with contents
+[
+/nologo /MD /w /W0 /Gm /GX /ZI /Od /I "C:\qt\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /Fp"Debug/NewProject.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\cncparser.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\colorsetter.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\csgpainter.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\cuttercontroller.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\cutterlib.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\main.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\qtGUI\moc_cncwindow.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\qtGUI\moc_MyOpenGLWidget.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\qtGUI\moc_optionswindow.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\qtGUI\MyOpenGLWidget.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\qtGUI\optionswindow.cpp"
+"C:\Documents and Settings\kitofr\Desktop\Programmering\xjobb\QT\CSGPainter\win32\shape.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\kitofr\LOCALS~1\Temp\RSP542.tmp" 
+Creating temporary file "C:\DOCUME~1\kitofr\LOCALS~1\Temp\RSP543.tmp" with contents
+[
+opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib imm32.lib wsock32.lib C:\qt\lib\qt-mt230nc.lib C:\qt\lib\qtmain.lib /nologo /subsystem:windows /incremental:yes /pdb:"Debug/NewProject.pdb" /debug /machine:I386 /out:"Debug/NewProject.exe" /pdbtype:sept 
+".\Debug\cncparser.obj"
+".\Debug\colorsetter.obj"
+".\Debug\csgpainter.obj"
+".\Debug\cuttercontroller.obj"
+".\Debug\cutterlib.obj"
+".\Debug\main.obj"
+".\Debug\moc_cncwindow.obj"
+".\Debug\moc_MyOpenGLWidget.obj"
+".\Debug\moc_optionswindow.obj"
+".\Debug\MyOpenGLWidget.obj"
+".\Debug\optionswindow.obj"
+".\Debug\shape.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\kitofr\LOCALS~1\Temp\RSP543.tmp"
+<h3>Output Window</h3>
+Compiling...
+cncparser.cpp
+colorsetter.cpp
+csgpainter.cpp
+cuttercontroller.cpp
+cutterlib.cpp
+main.cpp
+moc_cncwindow.cpp
+moc_MyOpenGLWidget.cpp
+moc_optionswindow.cpp
+MyOpenGLWidget.cpp
+optionswindow.cpp
+shape.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+NewProject.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
