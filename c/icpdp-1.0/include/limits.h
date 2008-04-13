@@ -1,0 +1,8 @@
+#ifndef LIMITS_H_INCLUDED
+#define LIMITS_H_INCLUDED
+
+#define BIG_BUFF_SIZE 1024
+#define MEDIUM_BUFF_SIZE 128
+#define SMALL_BUFF_SIZE 32
+
+#endif

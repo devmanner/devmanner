@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<field>
+	<range start="0" stop="8"/>
+	<selection>
+		<desc value = "1" name = "one"/>
+	</selection>
+	<selection>
+		<desc value = "2" name = "two"/>
+	</selection>
+</field>

@@ -1,0 +1,145 @@
+The ICPDP system
+################
+
+Introduction:
+=============
+icpdp is a program used to translate messages between CP & DP. It was written
+by Tomas Mannerstedt (tomasm@linux.nu) during the summer of 2004.
+
+Directorys
+==========
+bin/		: Contains the binarys icpdp & build_index.
+doc/		: Contains this file.
+etc/		: Contains all configuration files.
+include/	: Include files.
+logs/		: Sample logs.
+src/		: Source code.
+verifyer/	: The verifyer program.
+
+
+Installation
+============
+1.	Unzip and untar the file icpdp.tar.gz and chdir into icpdp:
+		gunzip icpdp-[version].tar.gz && tar xvf icpdp-[version].tar
+		cd icpdp
+2.	Edit the Makefile if needed. (Instructions in the Makefile)
+3.	Make sure gmake and gcc is in your path.
+4.	Run make (gmake actually).
+		gmake
+5.	Prey and hope it will compile.
+
+Programs and usage
+==================
+icpdp
+-----
+A CP-DP message translator. (Interpret CP/DP message)
+usage: icpdp [options] [file.log]
+
+OUTPUT OPTIONS:
+        -t: Display timestamp for the message.
+        -r: Display bit range for each field in the message.
+        -b: Display range in bits instead of byte:bit.
+        -i: Display detailed information about the field.
+        -h: Show field value in hex.
+        -d: Show the direction of the message.
+        -v: Verbose, same as: -trihd
+        -x: Print output specialized for XTerm. (fancy bold text)
+        -o file: Output executable code to file.
+
+INPUT OPTIONS:
+        -s: Read input from stdin instead of reading from a file.
+            Program can be executed with:
+             cat file.log | icpdp -s
+            or
+             icpdp -s < file.log
+
+OTHER OPTIONS:
+        -?: Display this message. This options seems buggy in tcsh but works
+	    fine in bash.
+
+build_index
+-----------
+A program used to build the index files for searching the config files. This
+program has to be run once after a change in a .conf file.
+usage: build_index [-v]
+
+OUTPUT OPTIONS:
+        -v: Run program in verbose mode.
+OTHER OPTIONS:
+        -?: Display this message.
+
+Note: The use of index files can be disabled by passing -DNO_INDEX_FILES to
+gcc when building the program. See Makefile for more information. It will work
+just fine as long as the config files are small, but when they grow it will be
+slow.
+
+verifyer.pl
+-----------
+A program used to create a table describeing messages in a .conf file.
+usage: verifyer.pl conffile.conf
+Output will be printed to stdout.
+
+
+Configuration files:
+====================
+
+*.conf
+------
+The .conf configuration files has the following syntax:
+
+# This is a comment.
+direction: AC: action code: function name
+range	name	type	value	description
+range	name	type	value	description
+...
+
+The first line is a comment (since it begins with a "#", the second line is a
+header for the given message and the third line describes a field i the
+message. The different fields are:
+* direction:	Can be either QUESTION or ANSWER
+* action code:	The action code for the message given as hex (ex 0x01).
+* function name:The name of the function. All characters matching the regular
+		expression /.+/ are allowed.
+* range:	The range of a field. It can be given in a number of different
+		ways:
+		a:b-c:d		=> byte a bit b to byte c bit d
+		a:b		=> byte a bit b to byte a bit b
+		a-b		=> bit a to b
+		a		=> bit a to a
+		Note: Bytes are numbered 1 to n and bits are numbered 0 to 7.
+		In the current implementation maximum size of a field is 4
+		bytes.
+* name:		The name of the field. It can contain anything but whitespace.
+* type:		The type of the field. Defined types are:
+		RAW_DATA:	Just a regular data field.
+		BIT:		A bit.
+		IP_ADDR:	A 4-byte IPv4-address.
+		ASCII:		An ascii string.
+		EMPTY:		An empty fiel. Also known as "pad".
+		INSTANCE_DATA:	The field(s) will be repeted until the end of
+				the message.
+		TUNNELED_SIZE:	The size of tunneled data.
+		TUNNELED_DATA:	The tunneled message.
+* value:	The value field can contain either a number or a "*"
+		(wildcard). If a row is read and the value does not match the
+		given value the row will be omitted. Example:
+		1:0-1:1		fieldname	BIT	0	zero
+		1:0-1:1		fieldname	BIT	1	one
+		1:0-1:1		fieldname	BIT	*	two or three
+		If the range 1:0-1:1 has value 0 "zero" will be printed ass
+		message, if 1 "one" will be printed and on any other value
+		"two or three" will be printed.
+
+Here are some rules about the configuration files.
+* A INSTANCE_DATA block cannot be followed by any other data except data of
+type INSTANCE_DATA.
+* Only an TUNNELED_DATA field can have a wildcard in its range.
+
+
+tunneling.spec
+--------------
+This file describes mapping between the id of the tunneled message and the
+application it belongs to. Syntax is:
+
+id:Application
+
