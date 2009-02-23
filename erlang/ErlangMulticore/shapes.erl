@@ -6,4 +6,9 @@ area({square, X}) ->
 area({triangle, Base, Height}) ->
     Base * Height / 2;
 area({circle, Radius}) ->
-    math:pi() * Radius * Radius.
+    math:pi() * Radius * Radius;
+area({composite, Shapes}) ->
+    F = fun(Shape, Acc) ->
+		area(Shape) + Acc
+	end,
+    lists:foldl(F, 0, Shapes).
