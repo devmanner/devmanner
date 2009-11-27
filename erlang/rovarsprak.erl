@@ -30,6 +30,18 @@ is_consonant(C) ->
 %%     [C,$o,C].
 %% ];
 
+translate2([]) ->
+    [];
+translate2([$c,$k|T]) ->
+    [$k,$o,$k|translate2([$k|T])];
+translate2([H|T]) ->
+    case is_consonant(H) of
+	true -> [H,$o,H|translate2(T)];
+	false -> [H|translate2(T)]
+    end.
+    
+
+
 test() ->
     "bob" = translate("b"),
     "totakokkok" = translate("tack"),
@@ -37,4 +49,20 @@ test() ->
 	= translate("jag talar rövarspråket"),
     "rorövovarorsospoproråkoketot"
 	= translate("rövarspråket"),
+
+    {R1,R2,R3} = erlang:now(),
+    random:seed(R1,R2,R3),
+    lists:foreach(fun(_) ->
+			  S = random_string(),
+			  io:format("~nTranslating: ~s~n", [S]),
+			  T1 = translate(S),
+			  T2 = translate2(S),
+			  io:format("~s~n~s~n", [T1, T2]),
+			  T1 = T2
+		  end, lists:seq(1,100)),
     ok.
+
+random_string() ->
+    Chars = "abcdefghijklmnopqrstuvwxyzåäö",
+    lists:map(fun(_) -> lists:nth(random:uniform(length(Chars)), Chars) end, lists:seq(1,10)).
+		      
